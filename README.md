@@ -24,7 +24,7 @@ menuEditor.onClickDelete((event) => {
 me.onClickEdit((event) => {
 	let itemData = event.item.getDataset();
 	console.log(itemData);
-	me.edit(event.item); // set the item in edit mode
+	menuEditor.edit(event.item); // set the item in edit mode
 });
 ```
 ### Add a new item
