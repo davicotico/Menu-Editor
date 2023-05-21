@@ -1,0 +1,42 @@
+{
+  "name": "menu-editor",
+  "version": "1.0.0",
+  "description": "Javascript Menu Library (made with Typescript)",
+  "main": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davicotico/Menu-Editor.git"
+  },
+  "keywords": [
+    "menu-editor",
+    "javascript-menu-editor",
+    "typescript-menu-editor",
+    "sortable",
+    "draggable",
+    "menu"
+  ],
+  "author": {
+    "name": "David Tomas Ticona Saravia",
+    "url": "https://davidticona.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davicotico/Menu-Editor/issues"
+  },
+  "homepage": "https://davidticona.com/demos/javascript-menu-editor",
+  "devDependencies": {
+    "@types/sortablejs": "^1.15.1",
+    "sass": "^1.62.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "sortablejs": "^1.15.0"
+  }
+}

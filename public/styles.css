@@ -1,0 +1,12 @@
+.jme-handle {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+.ghost {
+  opacity: 0.5;
+  background-color: #48c18a;
+}
+.chosen {
+  color: #fff;
+  background-color: #c00;
+}
