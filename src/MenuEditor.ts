@@ -48,7 +48,7 @@ export class MenuEditor {
     this.currentItem = null;
   }
 
-  public addArray(arr: Array<NestedItemData>) {
+  public setArray(arr: Array<NestedItemData>) {
     arr.forEach((elem) => {
       let item = new Item(elem);
       item.setOptions({sortableClassname: this.sortableClassname});

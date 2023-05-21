@@ -121,5 +121,5 @@ document.getElementById('btnOutput')?.addEventListener('click', () => {
 	txtOutput.value = me.getString();
 });
 
-me.addArray(json);
+me.setArray(json);
 me.mount();
