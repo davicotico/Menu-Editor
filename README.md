@@ -38,7 +38,7 @@ let newItem = {
 };
 menuEditor.add(newItem);
 ```
-## Output
+### Output
 ```
 let output = menuEditor.getString();
 console.log(output);
