@@ -12,7 +12,7 @@ export class MenuContainer{
   constructor(id: string) {
     const element = document.getElementById(id) as HTMLDivElement;
     if (element == null) {
-      throw Error("Error");
+      throw Error(`Error: Element with id="${id}" does not exists.`);
     }
     this.id = id;
     this.element = element;

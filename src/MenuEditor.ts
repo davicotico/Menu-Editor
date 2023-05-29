@@ -5,7 +5,7 @@ import { NestedItemData, Itemlistener, ItemDataset, ItemData } from "./types";
 import { datasetToItemData, setDatasetToElement } from "./functions";
 import { ElementItem } from "./ElementItem";
 
-export class MenuEditor {
+export default class MenuEditor {
   private menuContainer: MenuContainer;
   private currentItem: ElementItem | null = null;
   protected listenerDeleteButton: Itemlistener;

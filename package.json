@@ -1,9 +1,17 @@
 {
-  "name": "menu-editor",
+  "name": "@davicotico/menu-editor",
   "version": "1.0.0",
-  "description": "Javascript Menu Library (made with Typescript)",
-  "main": "lib/index.js",
-  "type": "module",
+  "description": "Vanilla Javascript Menu Editor Library (made with Typescript)",
+  "main": "./lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -29,7 +37,7 @@
   "bugs": {
     "url": "https://github.com/davicotico/Menu-Editor/issues"
   },
-  "homepage": "https://davidticona.com/demos/javascript-menu-editor",
+  "homepage": "https://davidticona.com/demos/javascript-menu-editor/",
   "devDependencies": {
     "@types/node": "^20.2.1",
     "@types/sortablejs": "^1.15.1",
@@ -39,6 +47,7 @@
     "vite-plugin-dts": "^2.3.0"
   },
   "dependencies": {
+    "bootstrap": "^5.3.0-alpha3",
     "sortablejs": "^1.15.0"
   }
 }
