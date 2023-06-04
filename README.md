@@ -4,6 +4,7 @@ Vanilla Javascript Menu Editor Library (made with Typescript).
 ## [>>> Demo <<<](https://davidticona.com/demos/javascript-menu-editor/)
 
 ## Install
+Via NPM
 
 ```
 npm install @davicotico/menu-editor
@@ -29,8 +30,51 @@ Javascript
 const menuEditor = new MenuEditor('element-id');
 ```
 ### Setting the data
+
+The data
 ```js
-menuEditor.setArray(jsonArray);
+var nestedData = [
+	{
+	"text": "Home",
+	"href": "/home",
+	"tooltip": "Go to home page",
+	"icon": "fa-solid fa-house",
+	"children": []
+	},
+	{
+	"text": "About Us",
+	"href": "/about",
+	"tooltip": "Learn more about our company",
+	"icon": "fa-solid fa-address-card",
+	"children": []
+	},
+	{
+	"text": "Services",
+	"href": "/services",
+	"tooltip": "Discover the services we offer",
+	"icon": "fa-solid fa-gear",
+	"children": [
+		{
+		"text": "Service 1",
+		"href": "/services/1",
+		"tooltip": "Details for Service 1",
+		"icon": "cog",
+		"children": []
+		},
+		{
+		"text": "Service 2",
+		"href": "/services/2",
+		"tooltip": "Details for Service 2",
+		"icon": "cog",
+		"children": []
+		}
+	]
+	}
+];
+```
+The method:
+```js
+menuEditor.setArray(nestedData);
 ```
 ### Events
 ```js
@@ -46,7 +90,7 @@ menuEditor.onClickEdit((event) => {
 	menuEditor.edit(event.item); // set the item in edit mode
 });
 ```
-### Mount the menu edior
+### Mount the menu editor
 ```js
 menuEditor.mount();
 ```
