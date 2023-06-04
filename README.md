@@ -12,13 +12,15 @@ npm install @davicotico/menu-editor
 
 Via CDN
 ```html
+<!-- Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/davicotico/Menu-Editor@1.0.0/dist/styles.min.css">
 
+<!-- and the javascript file -->
 <script src="https://cdn.jsdelivr.net/gh/davicotico/Menu-Editor@1.0.0/dist/menu-editor.min.js"></script>
 <script>
 	var menuEditor = new MenuEditor('element-id');
 </script>
-
+```
 
 ## How to use
 
