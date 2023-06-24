@@ -26,4 +26,44 @@ function setDatasetToElement(el: HTMLElement, data: ItemDataset): void {
   }
 }
 
-export { setDatasetToElement, itemDataToDataset, datasetToItemData };
+function getParents(elem: HTMLElement, root: HTMLElement, callback: Function) {
+  let parents: HTMLElement[] = [];
+  let parent = elem.parentNode as HTMLElement;
+  let index = 0;
+  while (parent && parent !== root) {
+    if (callback) {
+      if (callback(parent, index, elem)) {
+        parents.push(parent);
+      }
+    } else {
+      parents.push(parent);
+    }
+    index++;
+    parent = parent.parentNode as HTMLElement;
+  }
+  return parents;
+}
+
+function updateLevels(elemento: HTMLElement, nivel: number = -1) {
+  elemento.ariaLevel = `${nivel}`;
+  let hijos = elemento.children;
+  for (let i = 0; i < hijos.length; i++) {
+    let nuevoNivel = nivel;
+    if (hijos[i].matches('.list-group-item')) {
+      nuevoNivel = nuevoNivel + 1;
+    }
+    updateLevels(hijos[i] as HTMLElement, nuevoNivel);
+  }
+}
+
+function encontrarNivelMaximo(elemento: HTMLElement, nivelActual: number) {
+  let elementosDiv = elemento.querySelectorAll<HTMLElement>('.list-group-item');
+  let nivelMaximo = nivelActual;
+  for (let i = 0; i < elementosDiv.length; i++) {
+    let nivelHijo = encontrarNivelMaximo(elementosDiv[i], nivelActual + 1);
+    nivelMaximo = Math.max(nivelMaximo, nivelHijo);
+  }
+  return nivelMaximo;
+}
+
+export { setDatasetToElement, itemDataToDataset, datasetToItemData, getParents, updateLevels, encontrarNivelMaximo };

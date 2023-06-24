@@ -2,7 +2,7 @@ import Sortable from "sortablejs";
 import { Item } from "./Item";
 import { MenuContainer } from "./MenuContainer";
 import { NestedItemData, Itemlistener, ItemDataset, ItemData } from "./types";
-import { datasetToItemData, setDatasetToElement } from "./functions";
+import { datasetToItemData, getParents, setDatasetToElement, updateLevels } from "./functions";
 import { ElementItem } from "./ElementItem";
 
 export default class MenuEditor {
@@ -101,6 +101,7 @@ export default class MenuEditor {
   public mount(): void {
     this.menuContainer.mount();
     this.makeItSortable();
+    updateLevels(this.menuContainer.getElement());
   }
 
   protected makeItSortable() {
@@ -109,7 +110,32 @@ export default class MenuEditor {
       new Sortable(nestedSortables[i], {
         handle: ".jme-handle",
         ghostClass: "ghost",
-        group: "nested",
+        
+        group: {
+          name: 'nested',
+          pull: (to, _from) => {
+            var level = getParents(to.el, this.menuContainer.getElement(), (parent: HTMLElement) => {
+              if (parent.tagName != 'DIV')
+                return false;
+              return parent.matches('.list-group-item');
+            }).length;
+            if (level > 3) {
+              return false;
+            }
+            return true;
+          },
+          
+        },
+        onEnd: (_evt) => {
+          updateLevels(this.menuContainer.getElement());
+        },
+        /*onMove: (evt) => {
+          var level = getParents(evt.to, this.menuContainer.getElement(), (parent: HTMLElement) => parent.matches('.list-group-item') ).length;
+          console.log('Level: ' + level);
+          if (level > 3) {
+            return false;
+          }
+        },*/
         animation: 150,
         fallbackOnBody: true,
         swapThreshold: 0.65,
