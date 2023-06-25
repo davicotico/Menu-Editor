@@ -1,9 +1,9 @@
 import { ItemData, ItemDataset } from "./types";
 
 function itemDataToDataset(data: ItemData): ItemDataset {
-  let plainObject: ItemDataset = { text: '', href: '', icon: '', tooltip: '' };
-  for (let k in data) { 
-    if (typeof data[k] == 'string') {
+  let plainObject: ItemDataset = { text: "", href: "", icon: "", tooltip: "" };
+  for (let k in data) {
+    if (typeof data[k] == "string") {
       plainObject[k] = data[k] as string;
     }
   }
@@ -11,9 +11,9 @@ function itemDataToDataset(data: ItemData): ItemDataset {
 }
 
 function datasetToItemData(dataset: DOMStringMap): ItemData {
-  let itemData: ItemData = { text: '', href: '', icon: '', tooltip: '' };
-  for (let k in dataset) { 
-    if (typeof dataset[k] == 'string') {
+  let itemData: ItemData = { text: "", href: "", icon: "", tooltip: "" };
+  for (let k in dataset) {
+    if (typeof dataset[k] == "string") {
       itemData[k] = dataset[k] as string;
     }
   }
@@ -44,26 +44,33 @@ function getParents(elem: HTMLElement, root: HTMLElement, callback: Function) {
   return parents;
 }
 
-function updateLevels(elemento: HTMLElement, nivel: number = -1) {
-  elemento.ariaLevel = `${nivel}`;
-  let hijos = elemento.children;
-  for (let i = 0; i < hijos.length; i++) {
-    let nuevoNivel = nivel;
-    if (hijos[i].matches('.list-group-item')) {
-      nuevoNivel = nuevoNivel + 1;
+function updateLevels(element: HTMLElement, level: number = -1) {
+  element.ariaLevel = `${level}`;
+  let children = element.children;
+  for (let i = 0; i < children.length; i++) {
+    let updatedLevel = level;
+    if (children[i].matches(".list-group-item")) {
+      updatedLevel = updatedLevel + 1;
     }
-    updateLevels(hijos[i] as HTMLElement, nuevoNivel);
+    updateLevels(children[i] as HTMLElement, updatedLevel);
   }
 }
 
-function encontrarNivelMaximo(elemento: HTMLElement, nivelActual: number) {
-  let elementosDiv = elemento.querySelectorAll<HTMLElement>('.list-group-item');
-  let nivelMaximo = nivelActual;
-  for (let i = 0; i < elementosDiv.length; i++) {
-    let nivelHijo = encontrarNivelMaximo(elementosDiv[i], nivelActual + 1);
-    nivelMaximo = Math.max(nivelMaximo, nivelHijo);
+function getMaxNestedLevel(element: HTMLElement, currentLevel: number) {
+  let divElements = element.querySelectorAll<HTMLElement>(".list-group-item");
+  let maxLevel = currentLevel;
+  for (let i = 0; i < divElements.length; i++) {
+    let nestedLevel = getMaxNestedLevel(divElements[i], currentLevel + 1);
+    maxLevel = Math.max(maxLevel, nestedLevel);
   }
-  return nivelMaximo;
+  return maxLevel;
 }
 
-export { setDatasetToElement, itemDataToDataset, datasetToItemData, getParents, updateLevels, encontrarNivelMaximo };
+export {
+  setDatasetToElement,
+  itemDataToDataset,
+  datasetToItemData,
+  getParents,
+  updateLevels,
+  getMaxNestedLevel,
+};

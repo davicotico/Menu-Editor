@@ -10,18 +10,6 @@ Via NPM
 npm install @davicotico/menu-editor
 ```
 
-Via CDN
-```html
-<!-- Styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/davicotico/Menu-Editor@1.0.0/dist/styles.min.css">
-
-<!-- and the javascript file -->
-<script src="https://cdn.jsdelivr.net/gh/davicotico/Menu-Editor@1.0.0/dist/menu-editor.min.js"></script>
-<script>
-	var menuEditor = new MenuEditor('element-id');
-</script>
-```
-
 ## How to use
 
 ### Imports
@@ -39,7 +27,7 @@ HTML
 Javascript
 
 ```js
-const menuEditor = new MenuEditor('element-id');
+const menuEditor = new MenuEditor('element-id', { maxLevel: 3 });
 ```
 ### Setting the data
 
@@ -142,5 +130,12 @@ menuEditor.empty();
 ```
 
 ## Changelog
+
+#### v1.1.0
+
+* **New feature:** maxLevel option (zero-based value, where zero indicates the first level of the nested menu).
+* Improvements in the layout of items and buttons.
+
 #### v1.0.0 
+
 * First release

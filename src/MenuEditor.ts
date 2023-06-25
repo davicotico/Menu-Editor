@@ -1,9 +1,10 @@
 import Sortable from "sortablejs";
 import { Item } from "./Item";
 import { MenuContainer } from "./MenuContainer";
-import { NestedItemData, Itemlistener, ItemDataset, ItemData } from "./types";
-import { datasetToItemData, getParents, setDatasetToElement, updateLevels } from "./functions";
+import { NestedItemData, Itemlistener, ItemDataset, ItemData, MenuEditorOptions } from "./types";
+import { datasetToItemData, getMaxNestedLevel, setDatasetToElement, updateLevels } from "./functions";
 import { ElementItem } from "./ElementItem";
+import { defaultOptions } from "./constants";
 
 export default class MenuEditor {
   private menuContainer: MenuContainer;
@@ -11,10 +12,12 @@ export default class MenuEditor {
   protected listenerDeleteButton: Itemlistener;
   protected listenerEditButton: Itemlistener;
   protected sortableClassname: string = '';
+  protected options: MenuEditorOptions;
 
-  constructor(id: string) {
+  constructor(id: string, options: MenuEditorOptions = defaultOptions) {
     this.menuContainer = new MenuContainer(id);
-    this.sortableClassname = id + '-nested-sortable';
+    this.sortableClassname = `${id}-nested-sortable`;
+    this.options = options;
     this.menuContainer.setOptions({ sortableClassname: this.sortableClassname });
     this.listenerDeleteButton = () => {};
     this.listenerEditButton = () => {};
@@ -28,6 +31,7 @@ export default class MenuEditor {
     newItem.setListenerDeleteButton(this.listenerDeleteButton);
     newItem.buttonGroup.onClickDelete(this.listenerDeleteButton);
     setDatasetToElement(newItem.getElement(), data);
+    newItem.getElement().ariaLevel = '0';
     this.menuContainer.add(newItem);
     newItem.mount();
     this.makeItemSortable(newItem);
@@ -104,38 +108,27 @@ export default class MenuEditor {
     updateLevels(this.menuContainer.getElement());
   }
 
-  protected makeItSortable() {
+  protected makeItSortable(): void {
     var nestedSortables = [].slice.call<NodeListOf<HTMLElement>, [], HTMLElement[]>(document.querySelectorAll("." + this.sortableClassname));
     for (var i = 0; i < nestedSortables.length; i++) {
       new Sortable(nestedSortables[i], {
         handle: ".jme-handle",
         ghostClass: "ghost",
-        
         group: {
           name: 'nested',
-          pull: (to, _from) => {
-            var level = getParents(to.el, this.menuContainer.getElement(), (parent: HTMLElement) => {
-              if (parent.tagName != 'DIV')
-                return false;
-              return parent.matches('.list-group-item');
-            }).length;
-            if (level > 3) {
-              return false;
+          pull: (to, _from, dragEl) => {
+            if (this.options.maxLevel < 0) {
+              return true;
             }
-            return true;
+            let targetLevel = parseInt(to.el.ariaLevel as string);
+            let itemLevel = getMaxNestedLevel(dragEl, 0);
+            let level = itemLevel + targetLevel;
+            return (level < this.options.maxLevel);
           },
-          
         },
         onEnd: (_evt) => {
           updateLevels(this.menuContainer.getElement());
         },
-        /*onMove: (evt) => {
-          var level = getParents(evt.to, this.menuContainer.getElement(), (parent: HTMLElement) => parent.matches('.list-group-item') ).length;
-          console.log('Level: ' + level);
-          if (level > 3) {
-            return false;
-          }
-        },*/
         animation: 150,
         fallbackOnBody: true,
         swapThreshold: 0.65,
@@ -151,7 +144,21 @@ export default class MenuEditor {
     new Sortable(element, {
       handle: ".jme-handle",
       ghostClass: "ghost",
-      group: "nested",
+      group: {
+        name: 'nested',
+        pull: (to, _from, dragEl) => {
+          if (this.options.maxLevel < 0) {
+            return true;
+          }
+          let targetLevel = parseInt(to.el.ariaLevel as string);
+          let itemLevel = getMaxNestedLevel(dragEl, 0);
+          let level = itemLevel + targetLevel;
+          return (level < this.options.maxLevel);
+        },
+      },
+      onEnd: (_evt) => {
+        updateLevels(this.menuContainer.getElement());
+      },
       animation: 150,
       fallbackOnBody: true,
       swapThreshold: 0.65,

@@ -27,3 +27,6 @@
 .list-group-item {
   padding-right: 0px;
 }
+.list-group-item > .list-group > .list-group-item:first-child {
+  margin-top: 8px;
+}
