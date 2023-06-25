@@ -17,4 +17,7 @@ interface ItemParameters {
     item: ElementItem;
 }
 type Itemlistener = (params: ItemParameters) => void;
-export type { NestedItemData, ItemOptions, Itemlistener, ItemParameters, ItemData, ItemDataset };
+interface MenuEditorOptions {
+    maxLevel: number;
+}
+export type { NestedItemData, ItemOptions, Itemlistener, ItemParameters, ItemData, ItemDataset, MenuEditorOptions };

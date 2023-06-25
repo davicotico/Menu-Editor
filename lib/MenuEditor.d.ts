@@ -1,5 +1,5 @@
 import { Item } from "./Item";
-import { NestedItemData, Itemlistener, ItemDataset, ItemData } from "./types";
+import { NestedItemData, Itemlistener, ItemDataset, ItemData, MenuEditorOptions } from "./types";
 import { ElementItem } from "./ElementItem";
 export default class MenuEditor {
     private menuContainer;
@@ -7,7 +7,8 @@ export default class MenuEditor {
     protected listenerDeleteButton: Itemlistener;
     protected listenerEditButton: Itemlistener;
     protected sortableClassname: string;
-    constructor(id: string);
+    protected options: MenuEditorOptions;
+    constructor(id: string, options?: MenuEditorOptions);
     add(data: ItemDataset): void;
     edit(item: ElementItem): void;
     update(data: ItemDataset): void;
