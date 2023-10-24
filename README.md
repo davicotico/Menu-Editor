@@ -26,7 +26,7 @@ Via CDN
 
 ### Imports
 ```js
-import '@davicotico/menu-editor/css/styles.css';
+import '@davicotico/menu-editor/lib/css/styles.css';
 import { MenuEditor } from '@davicotico/menu-editor';
 ```
 
