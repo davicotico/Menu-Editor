@@ -10,6 +10,10 @@
     ".": {
       "import": "./lib/index.js",
       "require": "./lib/index.umd.js"
+    },
+    "./lib/css/": {
+      "import": "./lib/css/",
+      "require": "./lib/css/"
     }
   },
   "scripts": {
@@ -47,7 +51,7 @@
     "vite-plugin-dts": "^2.3.0"
   },
   "dependencies": {
-    "bootstrap": "^5.3.0-alpha3",
+    "bootstrap": "^5.3.2",
     "sortablejs": "^1.15.0"
   }
 }
