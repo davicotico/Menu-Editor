@@ -41,6 +41,22 @@ Javascript
 ```js
 const menuEditor = new MenuEditor('element-id', { maxLevel: 3 });
 ```
+
+### Setting the Events
+```js
+menuEditor.onClickDelete((event) => {
+	if (confirm('Do you want to delete the item ' + event.item.getDataset().text)) {
+		event.item.remove(); // remove the item
+	}
+});
+
+menuEditor.onClickEdit((event) => {
+	let itemData = event.item.getDataset();
+	console.log(itemData);
+	menuEditor.edit(event.item); // set the item in edit mode
+});
+```
+
 ### Setting the data
 
 The data
@@ -88,20 +104,7 @@ The method:
 ```js
 menuEditor.setArray(nestedData);
 ```
-### Events
-```js
-menuEditor.onClickDelete((event) => {
-	if (confirm('Do you want to delete the item ' + event.item.getDataset().text)) {
-		event.item.remove(); // remove the item
-	}
-});
 
-menuEditor.onClickEdit((event) => {
-	let itemData = event.item.getDataset();
-	console.log(itemData);
-	menuEditor.edit(event.item); // set the item in edit mode
-});
-```
 ### Mount the menu editor
 ```js
 menuEditor.mount();
